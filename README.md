@@ -67,7 +67,7 @@ Exact site coordinates and all raw third-party layers are **not** redistributed.
 [VARIANT B instead:] `data/public/sites_public_1km.csv` holds site positions snapped to a 1 km grid; exact coordinates are available on request.
 
 ## Reproducing the results
-Requires R 4.5.x and the raw inputs.
+Requires R 4.5.2 and the raw inputs.
 
     1. Open the project (RStudio) and run renv::restore()
     2. Put your local data folder in .Renviron:  PALEO_DATA=<path>
