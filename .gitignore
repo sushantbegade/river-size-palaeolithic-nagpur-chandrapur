@@ -1,49 +1,30 @@
-# History files
-.Rhistory
-.Rapp.history
-
-# Session Data files
-.RData
-.RDataTmp
-
-# User-specific files
-.Ruserdata
-
-# Example code in package build process
-*-Ex.R
-
-# Output files from R CMD build
-/*.tar.gz
-
-# Output files from R CMD check
-/*.Rcheck/
-
-# RStudio files
-.Rproj.user/
-
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
-
-# knitr and R markdown default cache directories
-*_cache/
-/cache/
-
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
-
-# R Environment Variables
+# data and third-party layers are cited, never redistributed
+data/
+*.tif
+*.tiff
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.gpkg
+*.geojson
+*.rds
+*.rda
+*.RData
+*.xlsx
+*.xls
+*.zip
+# secrets and session files
 .Renviron
-
-# pkgdown site
-docs/
-
-# translation temp files
-po/*~
-
-# RStudio Connect folder
-rsconnect/
+.Rhistory
+.Rproj.user/
+# renv library is rebuilt from renv.lock
+renv/library/
+renv/staging/
+# regenerable or machine-specific outputs
+output/figures/*.png
+output/logs/*.log
+output/logs/S19_run_tests.R
+# third-party dam positions (GDW), cited not redistributed
+output/tables/S04_gdw_barriers_within100km.csv
