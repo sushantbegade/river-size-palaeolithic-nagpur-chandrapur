@@ -1,6 +1,6 @@
 # River-size association of Palaeolithic findspots in Nagpur and Chandrapur districts, Central India
 
-[![DOI](https://doi.org/10.5281/zenodo.23273489)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23273489.svg)](https://doi.org/10.5281/zenodo.23273489)
 
 Code, tests, saved summary tables and figure-source tables for a spatial analysis of 197 Palaeolithic findspots
 (59 source references) in the Wainganga-Wardha basin, Central India.
