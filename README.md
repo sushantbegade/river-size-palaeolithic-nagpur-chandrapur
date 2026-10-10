@@ -1,6 +1,6 @@
 # River-size association of Palaeolithic findspots in Nagpur and Chandrapur districts, Central India
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.[CONCEPT-DOI-NUMBER].svg)](https://doi.org/10.5281/zenodo.[CONCEPT-DOI-NUMBER])
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.[CONCEPT-DOI-NUMBER].svg)](https://doi.org/10.5281/zenodo.23273489)
 
 Code, tests, saved summary tables and figure-source tables for a spatial analysis of 197 Palaeolithic findspots
 (59 source references) in the Wainganga-Wardha basin, Central India.
@@ -91,10 +91,10 @@ coordinate pairs, spatial file types or large files. [ADD YOUR ETHICS/HERITAGE S
 Cite the archive (Zenodo version DOI for exact reproduction, concept DOI for the project) and the paper when published:
 
     Begade, S., Sahu, P. (2026). Code and derived results: river-size association of Palaeolithic findspots in the Wainganga-Wardha
-    basin, Nagpur and Chandrapur districts, Central India (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.[VERSION-DOI-NUMBER]
+    basin, Nagpur and Chandrapur districts, Central India (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.23273489
 
 ## Licence
-Code: MIT (`LICENSE`). Derived tables and figures: CC BY 4.0. Third-party data keep their own licences.
+Code: MIT. Derived tables and figures: CC BY 4.0. Third-party data keep their own licences.
 
 
 ## Contact
