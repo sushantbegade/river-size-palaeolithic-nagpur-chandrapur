@@ -43,7 +43,7 @@ res <- list()
 add <- function(...) { r <- run_variant(...); res[[length(res) + 1L]] <<- r; message("  done: ", r$variant[1]); invisible(r) }
 add("baseline", dom, sets, KS, ex_d(dom), block_km = BLOCK_KM)
 
-# --- pre-registered: without elevation; road variant; prior SD; --------------------------------------------------------------
+# --- frozen design: without elevation; road variant; prior SD; --------------------------------------------------------------
 add("no elevation", dom, sets, KS, ex_d(dom), drop_cols = c("gm_alluvial", "elev"), block_km = BLOCK_KM)
 dom_r <- dom; dom_r$d_road_major <- dom_r$d_road_any
 sets_r <- lapply(sets, function(d) { d$d_road_major <- d$d_road_any; d })
@@ -54,7 +54,7 @@ for (psd in c(1, 5, 1e6)) {
   assign("PRIOR_SD", old, envir = globalenv())
 }
 
-# --- pre-registered: HydroRIVERS extension off (distances to the WRIS network only) -----------------------------------------------
+# --- frozen design: HydroRIVERS extension off (distances to the WRIS network only) -----------------------------------------------
 study <- sf::st_union(sf::st_geometry(sf::st_read(f$h, layer = "boundary", quiet = TRUE)))
 rv <- sf::st_read(f$h, layer = "rivers", quiet = TRUE); hr <- sf::st_read(f$e, layer = "hydrorivers", quiet = TRUE)
 cal <- readr::read_csv(f$cal, show_col_types = FALSE); upl <- stats::setNames(cal$upland_median, as.character(cal$ordsh))
@@ -66,12 +66,12 @@ for (k in KS) { sc_w[[paste0("d_k", k)]] <- nearest_dist(spts, lines$wris_only[[
 sets_w <- mk_sets(sc_w)
 add("HydroRIVERS extension off (WRIS network only)", dom_w, sets_w, KS, ex_d(dom_w), block_km = BLOCK_KM)
 
-# --- pre-registered: removed core retained in the domain ------------------------------------------------------------------------------
+# --- frozen design: removed core retained in the domain ------------------------------------------------------------------------------
 dom_c <- grid[grid$in_survey, ]; dom_c$gm4[is.na(dom_c$gm4)] <- "pediplain"
 sc_c <- sc_all[sc_all$in_survey, ]; sc_c$gm4[is.na(sc_c$gm4)] <- "pediplain"
 add("removed core retained", dom_c, mk_sets(sc_c), KS, ex_d(dom_c), block_km = BLOCK_KM)
 
-# --- pre-registered: 5 km survey domain (site membership by nearest grid cell) ------------------------------------------------------------
+# --- frozen design: 5 km survey domain (site membership by nearest grid cell) ------------------------------------------------------------
 if ("in_survey5" %in% names(grid)) {
   gsf <- sf::st_as_sf(grid[, c("x", "y", "in_survey5")], coords = c("x", "y"), crs = CRS_ANALYSIS, remove = FALSE)
   nn <- sf::st_nearest_feature(spts, gsf)
@@ -80,14 +80,14 @@ if ("in_survey5" %in% names(grid)) {
   add("5 km survey domain", dom5, mk_sets(sc[keep5, ]), KS, ex_d(dom5), block_km = BLOCK_KM)
 }
 
-# --- additions NOT in the pre-registration (labelled): fewer nuisance terms -----------------------------------------------------------------
+# --- additions NOT in the frozen design (labelled): fewer nuisance terms -----------------------------------------------------------------
 add("ADDITIONAL: without settle", dom, sets, KS, ex_d(dom), drop_cols = c("gm_alluvial", "settle"), block_km = BLOCK_KM)
 add("ADDITIONAL: without settle and road", dom, sets, KS, ex_d(dom), drop_cols = c("gm_alluvial", "settle", "road"), block_km = BLOCK_KM)
 
 vp <- do.call(rbind, res)
 write_csv_safe(vp, P("output", "tables", "S16_variants_profile.csv"))
 
-# --- pre-registered: thinning to 2 km and 5 km (random greedy, repeated) ----------------------------------------------------------------------
+# --- frozen design: thinning to 2 km and 5 km (random greedy, repeated) ----------------------------------------------------------------------
 des0 <- design_from_domain(dom); ex6 <- exposure_domain(dom, 6); Xq6 <- cbind(int = 1, des0$dom, z = ex6$z_dom)
 thin <- do.call(rbind, lapply(names(sets), function(nm) do.call(rbind, lapply(c(2000, 5000), function(dm) {
   message("  thinning ", nm, " at ", dm / 1000, " km (", THIN_R, " replicates)")

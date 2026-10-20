@@ -15,7 +15,7 @@ source(here::here("R", "spatial_cv.R"))
 options(max.print = 1e5)
 set.seed(SEED)
 t0 <- Sys.time()
-message("== S14 spatial cross-validation (pre-registered): leave-one-block-out predictive log-likelihood ==")
+message("== S14 spatial cross-validation (frozen design): leave-one-block-out predictive log-likelihood ==")
 
 BLOCKS_KM <- as.numeric(strsplit(Sys.getenv("S14_BLOCKS", "40,20"), ",")[[1]])
 KS        <- c(3L, 4L, 5L, 6L, 7L, 8L, 9L)

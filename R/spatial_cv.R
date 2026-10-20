@@ -1,4 +1,4 @@
-# R/spatial_cv.R -- functions for script 14 (pre-registered: blocked spatial cross-validation of the point-process models)
+# R/spatial_cv.R -- functions for script 14 (frozen design: blocked spatial cross-validation of the point-process models)
 # Needs: model_primary.R (fit_real, design_from_domain, exposure_domain), diagnostics.R (exposure_var), stepzero_b.R (cluster_ids)
 
 # design matrices (domain cells and sites) for every model compared

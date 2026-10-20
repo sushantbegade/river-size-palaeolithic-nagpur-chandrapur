@@ -1,4 +1,4 @@
-# R/robustness.R -- functions for script 16 (pre-registered robustness matrix, plus two labelled additions)
+# R/robustness.R -- functions for script 16 (robustness matrix of the frozen design, plus two labelled additions)
 # Needs: model_primary.R, diagnostics.R (subset_profile, exposure_var), stepzero_c.R (PRIOR_SD), quadrature.R (nearest_dist, SIZE_K)
 
 # random greedy thinning: keep a random subset in which no two points are closer than d_m (returns row indices)

@@ -12,10 +12,10 @@ source(here::here("R", "model_primary.R"))
 
 set.seed(SEED)
 t0 <- Sys.time()
-message("== S11 primary model: size-threshold profile on S1 open-air sites (pre-registered design) ==")
+message("== S11 primary model: size-threshold profile on S1 open-air sites (frozen design; not externally registered) ==")
 
 B         <- as.integer(Sys.getenv("S11_B", "1000"))
-BLOCKS_KM <- as.numeric(strsplit(Sys.getenv("S11_BLOCKS", "40,20,10"), ",")[[1]])   # first = primary (pre-registration)
+BLOCKS_KM <- as.numeric(strsplit(Sys.getenv("S11_BLOCKS", "40,20,10"), ",")[[1]])   # first = primary (frozen design)
 KS        <- c(3L, 4L, 5L, 6L, 7L, 8L, 9L)
 K_PRIMARY <- 6L
 
@@ -75,7 +75,7 @@ fb <- prim[prim$method == "full-refit bootstrap", ]
 supported <- fb$hi[fb$block_km == prim_bk] < 0
 decision <- data.frame(item = c("confirmatory k", "sample", "n sites in analysis domain", "primary block (km)", "beta per IQR",
                                 "95% CI low", "95% CI high", "intensity ratio q25 vs q75 (>1 = more sites near drainage)", "ratio 95% CI",
-                                "H1 supported (pre-registered rule: 40 km CI excludes 0, expected sign)"),
+                                "H1 supported (frozen-design rule: 40 km CI excludes 0, expected sign)"),
                        value = c(K_PRIMARY, "S1 open-air", nrow(s1), prim_bk, fb$beta_iqr[fb$block_km == prim_bk],
                                  fb$lo[fb$block_km == prim_bk], fb$hi[fb$block_km == prim_bk],
                                  fb$ratio_q25_vs_q75[fb$block_km == prim_bk],
@@ -115,7 +115,7 @@ cat("S1 sites in analysis domain:", nrow(s1), "| domain cells:", nrow(dom), "| c
     length(unique(cl_of(prim_bk))), "\n", sep = "")
 cat("\nPRIMARY (k = 6). beta = log intensity ratio per IQR of log distance; ratio = intensity at q25 distance / at q75 distance:\n")
 print(prim[, c("block_km", "method", "beta_iqr", "lo", "hi", "ratio_q25_vs_q75", "ratio_lo", "ratio_hi", "per_doubling", "n_boot_ok", "se_model_beta_iqr")], row.names = FALSE)
-cat("\nPre-registered rule for H1: 40 km full-refit CI excludes 0 in the expected direction (beta < 0) ->", ifelse(supported, "SUPPORTED", "NOT SUPPORTED"), "\n")
+cat("\nFrozen-design rule for H1: 40 km full-refit CI excludes 0 in the expected direction (beta < 0) ->", ifelse(supported, "SUPPORTED", "NOT SUPPORTED"), "\n")
 cat("(Absence of support is not evidence of absence; minimum detectable ratio is about 1.9 per IQR.)\n")
 cat("\nPROFILE (k = 3..9; ", prim_bk, " km blocks; delta-AIC is descriptive only, no thresholds):\n", sep = "")
 print(prof[, c("k", "beta_iqr", "lo", "hi", "ratio_q25_vs_q75", "ratio_lo", "ratio_hi", "per_doubling", "aic", "delta_aic_descriptive", "n_boot_ok")], row.names = FALSE)

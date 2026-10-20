@@ -1,4 +1,4 @@
-# R/exploratory.R -- functions for script 17 (EXPLORATORY items from the pre-registration: distance shape, single-period models, period contrast)
+# R/exploratory.R -- functions for script 17 (EXPLORATORY items declared in the frozen design: distance shape, single-period models, period contrast)
 # Needs: model_primary.R, diagnostics.R (boot_onestep_j, subset_profile), stepzero_b.R (cluster_ids)
 
 # five equal-area distance classes from the DOMAIN distribution of the standardised log distance; class 3 is the reference

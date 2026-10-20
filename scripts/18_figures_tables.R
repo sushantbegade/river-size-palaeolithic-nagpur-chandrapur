@@ -82,9 +82,9 @@ tabs <- list(T1_samples_in_analysis_domain = t1, T2_primary_k6_S1 = t2, T3_profi
 for (n in names(tabs)) wr(tabs[[n]], paste0(n, ".csv"))
 h1 <- tb$S11_decision$value[grepl("^H1 supported", tb$S11_decision$item)]
 ttl <- c(T1_samples_in_analysis_domain = "Table 1. Samples in the analysis domain.",
-         T2_primary_k6_S1 = paste0("Table 2. Confirmatory test, k = 6, S1 open-air. Pre-registered rule result (H1 supported): ", h1, ". beta > 0 means intensity RISES with distance (opposite to H1)."),
+         T2_primary_k6_S1 = paste0("Table 2. Confirmatory test, k = 6, S1 open-air. Frozen-design rule result (H1 supported): ", h1, ". beta > 0 means intensity RISES with distance (opposite to H1)."),
          T3_profile_by_sample_set = "Table 3. Threshold profile. S1: full-refit bootstrap; S2, S3: one-step bootstrap (40 km blocks). Profile claims at +-1 k only; k8-k9 exploratory.",
-         T4_robustness_k6 = "Table 4. Robustness at k = 6. Interval methods differ by row (last column); 'extra' rows were not pre-registered. S2 has no tier or full-refit rows because none were computed.",
+         T4_robustness_k6 = "Table 4. Robustness at k = 6. Interval methods differ by row (last column); 'extra' rows are not in the frozen design. S2 has no tier or full-refit rows because none were computed.",
          T4b_thinning_k6 = "Table 4b. Spatial thinning, k = 6 (100 replicates). Range = 2.5-97.5% of replicate estimates, not a confidence interval.",
          T5_negative_control = "Table 5. Negative control (lineament distance), S1, 40 km blocks.",
          T6_site_type_model_EXPLORATORY = "Table 6. EXPLORATORY. Log-odds of riverbed vs open-air per IQR of log distance (cluster bootstrap).",
@@ -104,7 +104,7 @@ cap <- c("# Figure captions (draft; every number is in FigSource_FigN.csv)", "",
          "**Fig. 2.** Log intensity ratio per IQR of log distance to drainage of WRIS order >= k (positive = intensity rises with distance). S1 (open-air): full-refit cluster bootstrap, 40 km blocks. S2 and S3: one-step approximation. H1 predicted a negative value in S1; the opposite was found. S3 is at water by construction. k = 8-9 are exploratory.", "",
          "**Fig. 3.** EXPLORATORY. Intensity relative to the middle distance class (five equal-area classes of distance to rivers of order >= k, nuisance-adjusted; 95% one-step cluster bootstrap intervals as saved; log axis). Open symbol = reference class.", "",
          "**Fig. 4.** Spatial cross-validation: held-out log-likelihood gain of each river model (and the lineament negative control) over the nuisance-only model, 40 km (filled) and 20 km (open) blocks. Whiskers are +-1 SE of the summed fold differences, a rough scale and not a confidence interval.", "",
-         "**Fig. 5.** Robustness of the k = 6 estimate. Left, S1; right, S2. Interval methods differ by group (see Table 4). Variants labelled extra were not pre-registered. S2 has no coordinate-tier or full-refit rows because none were computed.",
+         "**Fig. 5.** Robustness of the k = 6 estimate. Left, S1; right, S2. Interval methods differ by group (see Table 4). Variants labelled extra are not in the frozen design. S2 has no coordinate-tier or full-refit rows because none were computed.",
          sprintf("Of %d S1 intervals shown, %d exclude zero; of %d S2 intervals shown, %d include zero.", nrow(a5), n1, nrow(b5), n2), "",
          "**Fig. 6.** EXPLORATORY and post hoc. (a) Log-odds that a site is riverbed rather than open-air per IQR of log distance (negative = riverbed sites nearer rivers). (b) Decomposition at k = 6. Because the label depends on river distance, S1 and S2 are not classification-independent tests of river-size preference.")
 writeLines(cap, file.path(OUT_T, "captions.md"))

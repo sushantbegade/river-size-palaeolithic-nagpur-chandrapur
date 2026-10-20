@@ -28,7 +28,7 @@ res$renv <- if (file.exists(file.path(root, "renv.lock"))) "PASS" else "WARN"
 fz <- repro_verify_freeze(root)
 utils::write.csv(fz$table, file.path(logd, "S19_freeze_check.csv"), row.names = FALSE)
 res$freeze_manifest <- if (fz$md5_ok) "PASS" else "FAIL"
-chg <- fz$table$file[fz$table$status == "changed"]; mis <- fz$table$file[fz$table$status == "missing"]
+chg <- fz$table$file[fz$table$status == "changed"]; chg_doc <- fz$table$file[fz$table$status == "changed (documented)"]; mis <- fz$table$file[fz$table$status == "missing"]
 design_chg <- chg[!grepl("^output/", chg)]
 
 # ---- 3. data safety ----------------------------------------------------------------------------------------------
@@ -74,8 +74,8 @@ cat("\n========== S19 SUMMARY ==========\n")
 cat(sprintf("Mode: %s | R: %s | project root has '&' or space: %s\n", RUN_MODE, R.version.string, grepl("[& ]", root)))
 cat(sprintf("Packages used by code: %d | not installed: %s\n", nrow(pv), if (any(!pv$installed)) paste(pv$package[!pv$installed], collapse = ", ") else "none"))
 cat(sprintf("Design freeze manifest MD5 matches the registered value: %s (%s)\n", fz$md5_ok, fz$manifest_md5))
-cat(sprintf("Frozen files: %d unchanged, %d changed, %d missing | design files changed after freeze: %d | new design files: %d\n",
-            sum(fz$table$status == "unchanged"), length(chg), length(mis), length(design_chg), length(fz$new_design_files)))
+cat(sprintf("Frozen files: %d unchanged, %d changed (documented), %d changed (undocumented), %d missing | design files changed after freeze: %d | new design files: %d\n",
+            sum(fz$table$status == "unchanged"), length(chg_doc), length(chg), length(mis), length(design_chg), length(fz$new_design_files)))
 if (length(design_chg)) cat("  changed design files (each must be explained in docs/deviation_log*.md):", paste(design_chg, collapse = ", "), "\n")
 if (length(mis)) cat("  MISSING frozen files:", paste(mis, collapse = ", "), "\n")
 cat("  new design files since freeze:", if (length(fz$new_design_files)) paste(fz$new_design_files, collapse = ", ") else "none", "\n")

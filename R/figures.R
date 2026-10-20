@@ -220,7 +220,7 @@ fig5_data <- function(tb) {
   for (b in c(40, 20, 10)) { i <- which(pk$block_km == b & pk$method == "full-refit bootstrap")
   push(g1, if (b == 40) "40 km blocks (primary)" else paste0(b, " km blocks"), "S1", pk, "S11_primary_k6.csv", i, sprintf("95%% CI, full-refit cluster bootstrap, %d resamples", pk$n_boot_ok[i])) }
   v <- tb$S16_variants_profile
-  tidy <- function(z) { z <- sub("^ADDITIONAL: ", "extra (not pre-registered): ", z); z <- sub("^baseline$", "baseline (one-step comparator)", z)
+  tidy <- function(z) { z <- sub("^ADDITIONAL: ", "extra (not in the frozen design): ", z); z <- sub("^baseline$", "baseline (one-step comparator)", z)
   z <- sub("d_road_any instead of d_road_major", "any road instead of major road", z); sub("HydroRIVERS extension off \\(WRIS network only\\)", "HydroRIVERS extension off", z) }
   for (var in unique(v$variant)) for (set in c("S1", "S2")) {
     i <- which(v$variant == var & v$subset == paste0(set, ifelse(set == "S1", "_openair", "_all")) & v$k == 6)

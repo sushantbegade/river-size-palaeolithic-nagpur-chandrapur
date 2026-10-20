@@ -15,7 +15,7 @@ source(here::here("R", "exploratory.R"))
 options(max.print = 1e5)
 set.seed(SEED)
 t0 <- Sys.time()
-message("== S17 EXPLORATORY items (pre-registration section 5): distance shape, single-period models, period contrast ==")
+message("== S17 EXPLORATORY items (frozen-design document, section 5): distance shape, single-period models, period contrast ==")
 
 BLOCK_KM <- as.numeric(Sys.getenv("S17_BLOCK", "40"))
 B_ONE    <- as.integer(Sys.getenv("S17_B_ONE", "2000"))
@@ -73,7 +73,7 @@ contrast <- do.call(rbind, lapply(c("S1_openair", "S2_all"), function(nm) {
 }))
 write_csv_safe(contrast, P("output", "tables", "S17_period_contrast.csv"))
 write_csv_safe(data.frame(item = c("BLOCK_KM", "B_ONE", "B_PERIOD", "KS_SHAPE", "KS_PER", "label"),
-                          value = c(BLOCK_KM, B_ONE, B_PER, paste(KS_SHAPE, collapse = ","), paste(KS_PER, collapse = ","), "EXPLORATORY (pre-registered as exploratory)")),
+                          value = c(BLOCK_KM, B_ONE, B_PER, paste(KS_SHAPE, collapse = ","), paste(KS_PER, collapse = ","), "EXPLORATORY (declared exploratory in the frozen design)")),
                P("output", "logs", "S17_parameters.csv"))
 writeLines(capture.output(sessionInfo()), P("output", "logs", "S17_sessionInfo.txt"))
 

@@ -1,4 +1,4 @@
-# R/diagnostics.R -- functions for script 12 (pre-registered secondary analyses on the real sites)
+# R/diagnostics.R -- functions for script 12 (secondary analyses of the frozen design on the real sites)
 # Uses frozen helpers unchanged. Needs: model_primary.R (fit_real, boot_refit, ci_row, exposure_domain), stepzero_b.R (cluster_ids)
 
 # exposure for any distance column (e.g. d_lineament), standardised with the domain mean/sd of log distance

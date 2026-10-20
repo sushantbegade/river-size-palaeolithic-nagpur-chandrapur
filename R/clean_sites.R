@@ -95,7 +95,7 @@ clean_sites <- function(raw, crosswalk) {
     TRUE             ~ NA_character_
   )
 
-  # --- pre-registered sample sets (design v3.1, Part 4) ------------------------
+  # --- frozen design sample sets (design v3.1, Part 4) ------------------------
   d$S1_openair  <- d$site_type == "open_air"
   d$S2_all      <- TRUE
   d$S3_riverbed <- d$site_type == "riverbed"

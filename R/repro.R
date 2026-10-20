@@ -39,6 +39,7 @@ repro_verify_freeze <- function(root, manifest = file.path(root, "output", "logs
   m <- utils::read.csv(manifest, stringsAsFactors = FALSE); cur <- file.path(root, m$file); ex <- file.exists(cur)
   now <- rep(NA_character_, nrow(m)); now[ex] <- unname(tools::md5sum(cur[ex]))
   m$status <- ifelse(!ex, "missing", ifelse(now == m$md5, "unchanged", "changed"))
+  m$status <- repro_mark_documented(root, m, now)
   design <- unlist(lapply(c("R", "scripts", "tests", "docs"), function(d)
     paste0(d, "/", list.files(file.path(root, d), pattern = "\\.(R|md|csv|txt)$", recursive = TRUE))))
   list(manifest_md5 = unname(tools::md5sum(manifest)), md5_ok = identical(unname(tools::md5sum(manifest)), expect_md5),
@@ -126,4 +127,15 @@ repro_md5_set <- function(dir, pattern, exclude = character(0)) {
   f <- list.files(dir, pattern = pattern, full.names = TRUE); f <- f[!basename(f) %in% exclude]
   if (!length(f)) return(setNames(character(0), character(0)))
   setNames(unname(tools::md5sum(f)), basename(f))
+}
+
+# a changed frozen file is "changed (documented)" if docs/post_freeze_changes.csv lists it with the current MD5 (column md5_after); otherwise it stays "changed"
+repro_mark_documented <- function(root, m, now) {
+  pf <- file.path(root, "docs", "post_freeze_changes.csv")
+  if (!file.exists(pf)) return(m$status)
+  pc <- utils::read.csv(pf, stringsAsFactors = FALSE)
+  if (!all(c("file", "md5_after") %in% names(pc))) return(m$status)
+  ok <- m$status == "changed" & !is.na(now) & vapply(seq_along(now), function(i) isTRUE(any(pc$file == m$file[i] & pc$md5_after == now[i])), NA)
+  m$status[ok] <- "changed (documented)"
+  m$status
 }
